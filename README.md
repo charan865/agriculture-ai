@@ -1,4 +1,4 @@
-# 🌱 AgriAI — Your Farming Companion (మీ వ్యవసాయ సహచరుడు)
+# 🌱 AgriAI — Your Farming Companion
 
 > **Intelligent Agricultural Platform powered by Google Gemini Multimodal Vision, Precision Agrometeorology, and Native English & Telugu Localization.**
 
