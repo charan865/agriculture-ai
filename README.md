@@ -118,7 +118,7 @@ agriculture-ai/
 
 ### 1. Clone & Install
 ```bash
-git clone https://github.com/your-username/agriculture-ai.git
+git clone https://github.com/charan865/agriculture-ai.git
 cd agriculture-ai
 npm install
 ```

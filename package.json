@@ -3,6 +3,11 @@
   "private": true,
   "version": "1.0.0",
   "description": "AgriAI - Intelligent Agricultural Assistant with Gemini Multimodal Vision Crop Diagnosis, Weather Intelligence, and English & Telugu Localization",
+  "author": "charan865",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/charan865/agriculture-ai.git"
+  },
   "type": "module",
   "scripts": {
     "dev": "vite",
