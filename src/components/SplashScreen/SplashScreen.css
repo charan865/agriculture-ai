@@ -1,0 +1,455 @@
+/* ==========================================================================
+   AgriAI Startup Splash Screen
+   SEED → SPROUT → GROWTH → AGRI AI
+   ========================================================================== */
+
+.agri-splash-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 50% 46%, #ffffff 0%, #f6f8f5 60%, #ebf2eb 100%);
+  overflow: hidden;
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.32s cubic-bezier(0.4, 0, 0.2, 1), transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+  pointer-events: auto;
+}
+
+.agri-splash-overlay.exiting {
+  opacity: 0;
+  transform: scale(1.02);
+  pointer-events: none;
+}
+
+/* Ambient soft green backlight glow */
+.agri-splash-glow {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(46, 125, 50, 0.16) 0%, rgba(230, 244, 234, 0.06) 55%, transparent 75%);
+  pointer-events: none;
+  animation: splashAmbientPulse 2.8s ease-in-out infinite;
+}
+
+/* Main animated container */
+.agri-splash-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 24px;
+  max-width: 90vw;
+}
+
+/* Stage containing the SVG plant and brand badge (1.5–2x larger) */
+.agri-splash-stage {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  margin-bottom: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* SVG Plant Canvas (1.5-2x larger) */
+.agri-splash-svg {
+  width: 136px;
+  height: 136px;
+  overflow: visible;
+  filter: drop-shadow(0 6px 16px rgba(21, 94, 50, 0.16));
+}
+
+/* --- SVG Elements & Phases --- */
+
+/* Phase 1: Seed (0.0 - 0.5s) */
+.agri-seed {
+  transform-origin: 50px 74px;
+  animation: seedLifecycle 2.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.agri-seed-glow {
+  animation: seedGlowPulse 0.8s ease-in-out infinite alternate;
+}
+
+/* Ground soil ripple */
+.agri-ground {
+  stroke-dasharray: 75;
+  stroke-dashoffset: 75;
+  animation: groundReveal 2.8s ease-out forwards;
+}
+
+/* Phase 2: Sprout Stem (0.5 - 1.2s) */
+.agri-stem {
+  stroke-dasharray: 60;
+  stroke-dashoffset: 60;
+  animation: stemGrow 2.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* Phase 2: First Leaf (0.6 - 1.2s) */
+.agri-leaf-first {
+  transform-origin: 50px 54px;
+  animation: leafOneUnfurl 2.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Phase 3: Growth Second & Third Leaves (1.2 - 1.8s) */
+.agri-leaf-second {
+  transform-origin: 50px 42px;
+  animation: leafTwoUnfurl 2.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.agri-leaf-top {
+  transform-origin: 50px 28px;
+  animation: leafTopSprout 2.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Phase 4: Brand Logo Badge Morph (1.8 - 2.3s) */
+.agri-brand-badge {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 78px;
+  height: 78px;
+  border-radius: 20px;
+  background-color: #e6f4ea;
+  border: 1.5px solid #d7e8da;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #155e32;
+  box-shadow: 0 10px 28px rgba(21, 94, 50, 0.16), 0 3px 8px rgba(21, 94, 50, 0.08);
+  animation: brandBadgeFadeIn 2.8s cubic-bezier(0.34, 1.4, 0.64, 1) forwards;
+}
+
+/* Phase 4: Brand Typography (1.8 - 2.3s) */
+.agri-splash-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: brandTextReveal 2.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.agri-splash-title {
+  font-family: var(--font-main, 'Plus Jakarta Sans', sans-serif);
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: #155e32;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  margin-bottom: 4px;
+}
+
+.agri-splash-companion {
+  font-family: var(--font-main, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: #526b5a;
+  letter-spacing: -0.01em;
+}
+
+/* Phase 5: Tagline (2.3 - 2.7s) */
+.agri-splash-tagline {
+  font-family: var(--font-main, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: #2e7d32;
+  margin-top: 14px;
+  padding: 6px 16px;
+  border-radius: 9999px;
+  background-color: rgba(230, 244, 234, 0.7);
+  border: 1px solid rgba(215, 232, 218, 0.6);
+  letter-spacing: 0.01em;
+  animation: taglineReveal 2.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* ==========================================================================
+   Keyframes
+   Timeline:
+   0.00s = 0%
+   0.50s = 18%  (Phase 1: Seed)
+   1.20s = 43%  (Phase 2: Sprout)
+   1.80s = 64%  (Phase 3: Growth)
+   2.30s = 82%  (Phase 4: Brand Logo)
+   2.70s = 96%  (Phase 5: Tagline)
+   2.80s+ = 100% (Phase 6: Ready / Exit)
+   ========================================================================== */
+
+/* Ambient Glow Pulsing */
+@keyframes splashAmbientPulse {
+  0% { transform: scale(0.92); opacity: 0.6; }
+  50% { transform: scale(1.1); opacity: 0.95; }
+  100% { transform: scale(0.92); opacity: 0.6; }
+}
+
+/* Ground reveal */
+@keyframes groundReveal {
+  0% { opacity: 0; stroke-dashoffset: 60; }
+  10% { opacity: 0.7; stroke-dashoffset: 0; }
+  64% { opacity: 0.7; stroke-dashoffset: 0; }
+  78% { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+/* Seed Lifecycle (clear, visible germination) */
+@keyframes seedLifecycle {
+  0% {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  10% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  22% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+  34% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+  48% {
+    opacity: 0.92;
+    transform: scale(0.92);
+  }
+  64% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+}
+
+@keyframes seedGlowPulse {
+  0% { opacity: 0.35; transform: scale(0.95); }
+  100% { opacity: 0.85; transform: scale(1.15); }
+}
+
+/* Stem Growth */
+@keyframes stemGrow {
+  0%, 15% {
+    opacity: 0;
+    stroke-dashoffset: 60;
+  }
+  20% {
+    opacity: 1;
+  }
+  43% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  64% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+  75% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Leaf One (Left Sprout) */
+@keyframes leafOneUnfurl {
+  0%, 22% {
+    opacity: 0;
+    transform: scale(0) rotate(-25deg);
+  }
+  30% {
+    opacity: 1;
+  }
+  43% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+  64% {
+    opacity: 1;
+    transform: scale(1.08) rotate(2deg);
+  }
+  75% {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Leaf Two (Right Growth) */
+@keyframes leafTwoUnfurl {
+  0%, 42% {
+    opacity: 0;
+    transform: scale(0) rotate(25deg);
+  }
+  48% {
+    opacity: 1;
+  }
+  64% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+  75% {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Leaf Top (Apex Growth) */
+@keyframes leafTopSprout {
+  0%, 48% {
+    opacity: 0;
+    transform: scale(0) translateY(6px);
+  }
+  56% {
+    opacity: 1;
+  }
+  64% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  75% {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Brand Badge Fade In with Subtle Upward Glide (1.8 - 2.3s) */
+@keyframes brandBadgeFadeIn {
+  0%, 60% {
+    opacity: 0;
+    transform: translateY(22px) scale(0.82);
+    visibility: hidden;
+  }
+  66% {
+    visibility: visible;
+    opacity: 0.35;
+  }
+  78% {
+    opacity: 1;
+    transform: translateY(-2px) scale(1.05);
+  }
+  86%, 100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    visibility: visible;
+  }
+}
+
+/* Brand Text Reveal with Subtle Upward Motion (1.8 - 2.3s) */
+@keyframes brandTextReveal {
+  0%, 62% {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  78% {
+    opacity: 0.85;
+    transform: translateY(3px);
+  }
+  88%, 100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Tagline Reveal with Subtle Upward Motion (2.3 - 2.7s) */
+@keyframes taglineReveal {
+  0%, 78% {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  90%, 100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
+   Accessibility: prefers-reduced-motion
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .agri-splash-overlay {
+    transition: opacity 0.25s ease;
+  }
+  
+  .agri-splash-glow {
+    animation: none;
+    opacity: 0.7;
+  }
+
+  /* Skip vegetative growth animation; show calm brand badge */
+  .agri-splash-svg {
+    display: none;
+  }
+
+  .agri-brand-badge {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    visibility: visible;
+  }
+
+  .agri-splash-brand {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .agri-splash-tagline {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+@media (max-width: 640px) {
+  .agri-splash-stage {
+    width: 114px;
+    height: 114px;
+    margin-bottom: 18px;
+  }
+
+  .agri-splash-svg {
+    width: 110px;
+    height: 110px;
+  }
+
+  .agri-brand-badge {
+    width: 68px;
+    height: 68px;
+    border-radius: 18px;
+  }
+
+  .agri-splash-title {
+    font-size: 1.85rem;
+  }
+
+  .agri-splash-companion {
+    font-size: 0.88rem;
+  }
+
+  .agri-splash-tagline {
+    font-size: 0.80rem;
+    padding: 5px 12px;
+    margin-top: 10px;
+  }
+}

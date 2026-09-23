@@ -1,0 +1,44 @@
+# Dependencies
+node_modules/
+/.pnp
+.pnp.js
+
+# Production build artifacts
+dist/
+build/
+
+# Environment variables & secrets (CRITICAL: Never commit API keys!)
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Local SQLite databases & journals
+*.sqlite
+*.sqlite-journal
+*.sqlite3
+agri_data.sqlite*
+
+# Runtime user uploads (keep directory with .gitkeep)
+public/uploads/*
+!public/uploads/.gitkeep
+
+# TypeScript build caches
+*.tsbuildinfo
+
+# Logs & debugging
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Internal development scratch scripts
+scratch/
+
+# OS & Editor generated files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
