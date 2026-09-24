@@ -1,6 +1,7 @@
 import React from 'react';
 import { MessageSquare, Camera } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
+import { useUser } from '../../context/UserContext';
 
 interface HeroSectionProps {
   onAskAI: () => void;
@@ -9,6 +10,7 @@ interface HeroSectionProps {
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ onAskAI, onDiagnose }) => {
   const { t } = useLanguage();
+  const { userName } = useUser();
 
   return (
     <div
@@ -32,13 +34,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onAskAI, onDiagnose })
         {/* Farmer Greeting */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '8px' }}>
           <span style={{ fontSize: '0.96rem', fontWeight: 700, color: '#155e32' }}>
-            {t('dashboard.greeting')}
+            {t('dashboard.greeting', { name: userName })}
           </span>
           <span style={{ fontSize: '1.15rem' }}>👋</span>
         </div>
 
         {/* Main Headline */}
         <h2
+          className="hero-title"
           style={{
             fontSize: '2.4rem',
             fontWeight: 800,
@@ -53,6 +56,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onAskAI, onDiagnose })
 
         {/* Supporting description with enhanced contrast & legibility */}
         <p
+          className="hero-subtitle"
           style={{
             fontSize: '0.95rem',
             color: '#133622',
@@ -67,7 +71,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onAskAI, onDiagnose })
         </p>
 
         {/* Action Buttons */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
+        <div className="hero-btn-group" style={{ display: 'flex', alignItems: 'center', gap: '14px', flexWrap: 'wrap' }}>
           <button
             onClick={onAskAI}
             className="btn-primary-pill"

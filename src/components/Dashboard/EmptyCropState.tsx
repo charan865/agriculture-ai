@@ -149,6 +149,7 @@ export const EmptyCropState: React.FC<EmptyCropStateProps> = ({ onAddCrop }) => 
 
       {/* 3 Benefit Columns matching reference */}
       <div
+        className="empty-benefits-grid"
         style={{
           width: '100%',
           maxWidth: '680px',

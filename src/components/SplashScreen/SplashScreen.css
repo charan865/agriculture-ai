@@ -453,3 +453,36 @@
     margin-top: 10px;
   }
 }
+
+@media (max-width: 360px) {
+  .agri-splash-stage {
+    width: 96px;
+    height: 96px;
+    margin-bottom: 14px;
+  }
+
+  .agri-splash-svg {
+    width: 92px;
+    height: 92px;
+  }
+
+  .agri-brand-badge {
+    width: 58px;
+    height: 58px;
+    border-radius: 14px;
+  }
+
+  .agri-splash-title {
+    font-size: 1.55rem;
+  }
+
+  .agri-splash-companion {
+    font-size: 0.8rem;
+  }
+
+  .agri-splash-tagline {
+    font-size: 0.74rem;
+    padding: 4px 10px;
+    margin-top: 8px;
+  }
+}

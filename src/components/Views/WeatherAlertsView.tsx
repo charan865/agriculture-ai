@@ -130,7 +130,14 @@ export const WeatherAlertsView: React.FC<WeatherAlertsViewProps> = ({ currentWea
       </div>
 
       {/* Farming Advisories & Spraying Window */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '20px' }}>
+      <div
+        className="weather-advisory-grid"
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(320px, 100%), 1fr))',
+          gap: '20px'
+        }}
+      >
         <div className="agri-card" style={{ padding: '22px' }}>
           <h4 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
             <ShieldCheck size={18} color="#155e32" />
@@ -239,7 +246,10 @@ export const WeatherAlertsView: React.FC<WeatherAlertsViewProps> = ({ currentWea
           {loading && <span style={{ fontSize: '0.78rem', color: '#155e32' }}>{t('weather.loadingForecast')}</span>}
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: '12px' }}>
+        <div
+          className="weather-forecast-grid"
+          style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: '12px' }}
+        >
           {forecast.map((day, idx) => (
             <div
               key={idx}

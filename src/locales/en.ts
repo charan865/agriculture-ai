@@ -70,7 +70,7 @@ export const en = {
     localizeWeather: 'Localize temperature, rain chances, and crop spray windows'
   },
   dashboard: {
-    greeting: 'Good morning, Farmer!',
+    greeting: 'Welcome, {name}',
     heroTitle: 'Farming made simpler with AI',
     heroSubtitle: 'Get crop insights, diagnose problems, check weather and receive personalized recommendations — all in one place.',
     askAgriAI: 'Ask AgriAI →',

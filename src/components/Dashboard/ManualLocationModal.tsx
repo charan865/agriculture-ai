@@ -68,10 +68,10 @@ export const ManualLocationModal: React.FC<ManualLocationModalProps> = ({
       onClick={onClose}
     >
       <div
-        className="agri-card"
+        className="agri-card modal-content"
         style={{
           width: '100%',
-          maxWidth: '460px',
+          maxWidth: 'min(460px, calc(100vw - 24px))',
           backgroundColor: '#ffffff',
           borderRadius: '24px',
           padding: '24px',

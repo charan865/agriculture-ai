@@ -226,7 +226,7 @@ export const aiService = {
         const cropSummary = userCrops.length > 0 
           ? `మీరు నమోదు చేసిన **${userCrops.length} పంటలు** (${userCrops.map((c) => c.name).join(', ')}) గమనిస్తున్నాను.`
           : `మీరు డ్యాష్‌బోర్డ్‌లో **"+ మీ మొదటి పంటను జోడించండి"** పై క్లిక్ చేసి పంటలను నమోదు చేసుకోవచ్చు!`;
-        fallbackText = `నమస్కారం చరణ్! నేను మీ **AgriAI** వ్యవసాయ సహాయకుడిని. ${cropSummary}\n\nఈరోజు మీ వ్యవసాయంలో నేను మీకు ఎలా సహాయపడగలను?`;
+        fallbackText = `నమస్కారం! నేను మీ **AgriAI** వ్యవసాయ సహాయకుడిని. ${cropSummary}\n\nఈరోజు మీ వ్యవసాయంలో నేను మీకు ఎలా సహాయపడగలను?`;
       } else {
         const cropSummary = userCrops.length > 0 
           ? `I see you have **${userCrops.length} registered crops** (${userCrops.map((c) => c.name).join(', ')}).`

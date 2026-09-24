@@ -86,9 +86,10 @@ export const CropSection: React.FC<CropSectionProps> = ({
 
       {/* Grid of Crop Cards */}
       <div
+        className="crop-cards-grid"
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(min(240px, 100%), 1fr))',
           gap: '16px'
         }}
       >
@@ -131,7 +132,7 @@ export const CropSection: React.FC<CropSectionProps> = ({
             </div>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '12px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(260px, 100%), 1fr))', gap: '12px' }}>
             {recommendations.slice(0, 2).map((rec) => {
               const isAlert = rec.severity === 'critical' || rec.severity === 'warning';
               return (

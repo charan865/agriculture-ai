@@ -386,7 +386,7 @@ export const WeatherCard: React.FC<WeatherCardProps> = ({
 
   return (
     <div
-      className="agri-card"
+      className="agri-card dashboard-weather-card"
       style={{
         padding: '24px 26px',
         display: 'flex',
@@ -457,6 +457,7 @@ export const WeatherCard: React.FC<WeatherCardProps> = ({
 
         {/* 3 Metrics in a row: Humidity, Wind, Rain Chance */}
         <div
+          className="weather-metrics-grid"
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(3, 1fr)',

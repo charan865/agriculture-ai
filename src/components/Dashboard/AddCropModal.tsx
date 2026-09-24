@@ -165,7 +165,7 @@ export const AddCropModal: React.FC<AddCropModalProps> = ({ isOpen, onClose, onS
           </div>
 
           {/* Field Name & Acreage */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '14px', marginBottom: '18px' }}>
+          <div className="modal-form-grid-2" style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '14px', marginBottom: '18px' }}>
             <div>
               <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '6px' }}>
                 {t('myCrops.fieldNameLabel')}
@@ -211,7 +211,7 @@ export const AddCropModal: React.FC<AddCropModalProps> = ({ isOpen, onClose, onS
           </div>
 
           {/* Planting Date & Growth Stage */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', marginBottom: '18px' }}>
+          <div className="modal-form-grid-even" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', marginBottom: '18px' }}>
             <div>
               <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '6px' }}>
                 {t('myCrops.plantingDate')}
@@ -259,7 +259,7 @@ export const AddCropModal: React.FC<AddCropModalProps> = ({ isOpen, onClose, onS
           </div>
 
           {/* Irrigation & Soil Type */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', marginBottom: '26px' }}>
+          <div className="modal-form-grid-even" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', marginBottom: '26px' }}>
             <div>
               <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '6px' }}>
                 {t('myCrops.irrigation')}

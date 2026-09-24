@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Settings, User, RefreshCw, Trash2, CheckCircle2, Shield, Globe, Check } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
+import { useUser } from '../../context/UserContext';
 
 interface SettingsViewProps {
   onLoadDemoCrops: () => void;
@@ -14,6 +15,22 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
   cropsCount
 }) => {
   const { t, language, setLanguage, languages } = useLanguage();
+  const { userName, setUserName } = useUser();
+  const [nameInput, setNameInput] = useState(userName);
+  const [savedSuccess, setSavedSuccess] = useState(false);
+
+  useEffect(() => {
+    setNameInput(userName);
+  }, [userName]);
+
+  const handleSaveProfile = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (nameInput.trim()) {
+      setUserName(nameInput.trim());
+      setSavedSuccess(true);
+      setTimeout(() => setSavedSuccess(false), 2500);
+    }
+  };
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', maxWidth: '840px' }}>
@@ -59,6 +76,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
             display: 'flex',
             flexDirection: 'column',
             gap: '8px',
+            width: '100%',
             maxWidth: '380px',
             backgroundColor: '#f9fbf9',
             padding: '12px',
@@ -108,46 +126,76 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
           <span>{t('settings.farmerProfile')}</span>
         </h3>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px' }}>
-          <div>
-            <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: 'var(--text-main)', marginBottom: '6px' }}>
-              {t('settings.fullName')}
-            </label>
-            <input
-              type="text"
-              defaultValue="Charan Teja"
-              style={{
-                width: '100%',
-                height: '40px',
-                padding: '0 14px',
-                borderRadius: '12px',
-                border: '1.5px solid var(--border-subtle)',
-                fontSize: '0.85rem'
-              }}
-            />
+        <form onSubmit={handleSaveProfile}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(260px, 100%), 1fr))', gap: '16px', marginBottom: '16px' }}>
+            <div>
+              <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: 'var(--text-main)', marginBottom: '6px' }}>
+                {t('settings.fullName')}
+              </label>
+              <input
+                type="text"
+                value={nameInput}
+                onChange={(e) => setNameInput(e.target.value)}
+                placeholder="Farmer"
+                style={{
+                  width: '100%',
+                  height: '40px',
+                  padding: '0 14px',
+                  borderRadius: '12px',
+                  border: '1.5px solid var(--border-subtle)',
+                  fontSize: '0.85rem'
+                }}
+              />
+            </div>
+
+            <div>
+              <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: 'var(--text-main)', marginBottom: '6px' }}>
+                {t('settings.classification')}
+              </label>
+              <input
+                type="text"
+                disabled
+                value={t('settings.classificationValue')}
+                style={{
+                  width: '100%',
+                  height: '40px',
+                  padding: '0 14px',
+                  borderRadius: '12px',
+                  border: '1.5px solid var(--border-subtle)',
+                  backgroundColor: '#f8faf8',
+                  fontSize: '0.85rem',
+                  color: '#52695a'
+                }}
+              />
+            </div>
           </div>
 
-          <div>
-            <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: 'var(--text-main)', marginBottom: '6px' }}>
-              {t('settings.classification')}
-            </label>
-            <input
-              type="text"
-              disabled
-              value={t('settings.classificationValue')}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
+            <button
+              type="submit"
+              className="btn-primary-pill"
               style={{
-                width: '100%',
-                height: '40px',
-                padding: '0 14px',
-                borderRadius: '12px',
-                border: '1.5px solid var(--border-subtle)',
-                backgroundColor: '#f8faf8',
-                fontSize: '0.85rem',
-                color: '#52695a'
+                padding: '9px 22px',
+                fontSize: '0.86rem',
+                backgroundColor: savedSuccess ? '#15803d' : '#155e32'
               }}
-            />
+            >
+              {savedSuccess ? (
+                <>
+                  <Check size={16} />
+                  <span>{language === 'te' ? 'భద్రపరచబడింది!' : 'Saved!'}</span>
+                </>
+              ) : (
+                <span>{language === 'te' ? 'భద్రపరచు' : 'Save'}</span>
+              )}
+            </button>
+            {savedSuccess && (
+              <span style={{ fontSize: '0.82rem', color: '#15803d', fontWeight: 600 }}>
+                {language === 'te' ? 'పేరు విజయవంతంగా నవీకరించబడింది' : 'Name updated successfully'}
+              </span>
+            )}
           </div>
-        </div>
+        </form>
       </div>
 
       {/* Demo State Testing Controls */}

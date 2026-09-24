@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { MessageSquare, Send, Loader2, Sprout, CloudSun, Sparkles } from 'lucide-react';
 import { Crop, WeatherData } from '../../types';
 import { aiService } from '../../services/aiService';
+import { useUser } from '../../context/UserContext';
 import { useLanguage } from '../../context/LanguageContext';
 
 interface AIAssistantViewProps {
@@ -42,7 +43,7 @@ export const AIAssistantView: React.FC<AIAssistantViewProps> = ({
     if (lang === 'te') {
       return `నమస్కారం! నేను మీ **AgriAI** వ్యవసాయ సహాయకుడిని. మీ ${weather?.location ? `ప్రాంతం (${weather.location})` : 'పొలం'} మరియు ${userCrops.length} నమోదైన పంటల వివరాలను పరిశీలిస్తున్నాను. ఈరోజు మీ వ్యవసాయానికి నేను ఏ విధంగా సహాయపడగలను?`;
     }
-    return `Hello Charan! I'm **AgriAI**, your dedicated farm intelligence agent. I'm actively tracking ${weather?.location ? `your location (${weather.location})` : 'your farm'} and your ${userCrops.length} registered crop(s). How can I assist your farm today?`;
+    return `Hello ${userName}! I'm **AgriAI**, your dedicated farm intelligence agent. I'm actively tracking ${weather?.location ? `your location (${weather.location})` : 'your farm'} and your ${userCrops.length} registered crop(s). How can I assist your farm today?`;
   };
 
   const [messages, setMessages] = useState<ChatMessage[]>([
@@ -103,7 +104,7 @@ export const AIAssistantView: React.FC<AIAssistantViewProps> = ({
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: 'calc(100vh - 120px)', gap: '16px' }}>
+    <div className="ai-assistant-wrapper" style={{ display: 'flex', flexDirection: 'column', height: 'calc(100vh - 120px)', gap: '16px' }}>
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px' }}>
         <div>
@@ -168,7 +169,7 @@ export const AIAssistantView: React.FC<AIAssistantViewProps> = ({
 
       {/* Main Chat Window Card */}
       <div
-        className="agri-card"
+        className="agri-card ai-chat-card"
         style={{
           flex: 1,
           display: 'flex',
@@ -202,6 +203,7 @@ export const AIAssistantView: React.FC<AIAssistantViewProps> = ({
                 }}
               >
                 <div
+                  className="ai-message-bubble"
                   style={{
                     maxWidth: '82%',
                     padding: '14px 18px',
@@ -212,6 +214,8 @@ export const AIAssistantView: React.FC<AIAssistantViewProps> = ({
                     fontSize: '0.89rem',
                     lineHeight: 1.55,
                     whiteSpace: 'pre-line',
+                    wordBreak: 'break-word',
+                    overflowWrap: 'break-word',
                     boxShadow: isUser ? '0 3px 12px rgba(21, 94, 50, 0.15)' : '0 2px 8px rgba(0, 0, 0, 0.03)'
                   }}
                 >

@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Search, MapPin, Bell, ChevronDown, Menu, Check, User, Info, LocateFixed, Languages } from 'lucide-react';
+import { Search, MapPin, Bell, ChevronDown, Menu, Check, User, Info, LocateFixed, Languages, Sprout } from 'lucide-react';
 import { locationService } from '../../services/locationService';
 import { LocationInfo } from '../../types';
 import { useLanguage } from '../../context/LanguageContext';
+import { useUser } from '../../context/UserContext';
 
 interface TopBarProps {
   onMenuClick: () => void;
@@ -20,6 +21,7 @@ export const TopBar: React.FC<TopBarProps> = ({
   onSearchSubmit
 }) => {
   const { t, language, setLanguage, languages } = useLanguage();
+  const { userName, userInitials } = useUser();
   const [searchQuery, setSearchQuery] = useState('');
   const [showLocationDropdown, setShowLocationDropdown] = useState(false);
   const [showLangDropdown, setShowLangDropdown] = useState(false);
@@ -71,6 +73,7 @@ export const TopBar: React.FC<TopBarProps> = ({
 
   return (
     <header
+      className="topbar-header"
       style={{
         height: 'var(--topbar-height)',
         display: 'flex',
@@ -79,16 +82,17 @@ export const TopBar: React.FC<TopBarProps> = ({
         padding: '0 32px',
         position: 'sticky',
         top: 0,
-        backgroundColor: 'rgba(246, 248, 245, 0.92)',
+        backgroundColor: 'rgba(246, 248, 245, 0.94)',
         backdropFilter: 'blur(10px)',
         zIndex: 99,
         borderBottom: '1px solid var(--border-light)',
         gap: '16px'
       }}
     >
-      {/* Mobile Toggle & Search Bar */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flex: 1, maxWidth: '640px' }}>
+      {/* Mobile Toggle, Mobile Brand & Desktop Search Bar */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flex: 1, maxWidth: '640px' }}>
         <button
+          type="button"
           onClick={onMenuClick}
           style={{
             background: '#ffffff',
@@ -97,18 +101,44 @@ export const TopBar: React.FC<TopBarProps> = ({
             color: 'var(--text-main)',
             cursor: 'pointer',
             padding: '7px',
-            display: 'none',
             alignItems: 'center',
             justifyContent: 'center'
           }}
           className="mobile-sidebar-toggle"
-          aria-label="Toggle Navigation"
+          aria-label="Toggle Navigation Menu"
         >
           <Menu size={20} />
         </button>
 
-        {/* Search Input Box */}
-        <form onSubmit={handleSearch} style={{ position: 'relative', width: '100%', maxWidth: '440px' }}>
+        {/* Compact Mobile Branding */}
+        <div
+          className="topbar-brand-mobile"
+          style={{
+            alignItems: 'center',
+            gap: '8px'
+          }}
+        >
+          <div
+            style={{
+              width: '32px',
+              height: '32px',
+              borderRadius: '8px',
+              backgroundColor: '#e6f4ea',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: '#155e32'
+            }}
+          >
+            <Sprout size={18} />
+          </div>
+          <span style={{ fontSize: '1.18rem', fontWeight: 800, color: '#155e32', letterSpacing: '-0.02em', lineHeight: 1 }}>
+            AgriAI
+          </span>
+        </div>
+
+        {/* Search Input Box (Desktop only) */}
+        <form onSubmit={handleSearch} className="desktop-search-form" style={{ position: 'relative', width: '100%', maxWidth: '440px' }}>
           <Search
             size={18}
             color="#7a9182"
@@ -233,7 +263,9 @@ export const TopBar: React.FC<TopBarProps> = ({
         {/* Location Selector Pill */}
         <div style={{ position: 'relative' }} ref={locRef}>
           <button
+            type="button"
             onClick={() => setShowLocationDropdown(!showLocationDropdown)}
+            className="topbar-location-btn"
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -510,7 +542,7 @@ export const TopBar: React.FC<TopBarProps> = ({
               transition: 'all var(--transition-fast)'
             }}
           >
-            {/* Avatar Circle with "CT" */}
+            {/* Avatar Circle with dynamic initials */}
             <div
               style={{
                 width: '32px',
@@ -526,11 +558,11 @@ export const TopBar: React.FC<TopBarProps> = ({
                 border: '1px solid #c2dec8'
               }}
             >
-              CT
+              {userInitials}
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left' }} className="profile-text">
               <span style={{ fontSize: '0.84rem', fontWeight: 700, color: 'var(--text-main)', lineHeight: 1.1 }}>
-                Charan Teja
+                {userName}
               </span>
               <span style={{ fontSize: '0.7rem', fontWeight: 500, color: 'var(--text-muted)', lineHeight: 1 }}>
                 {t('topbar.farmer')}
@@ -557,7 +589,7 @@ export const TopBar: React.FC<TopBarProps> = ({
               }}
             >
               <div style={{ padding: '8px 12px', borderBottom: '1px solid var(--border-light)', marginBottom: '4px' }}>
-                <p style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-main)' }}>Charan Teja</p>
+                <p style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-main)' }}>{userName}</p>
                 <p style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>{t('topbar.farmerRegistered')}</p>
               </div>
               <button

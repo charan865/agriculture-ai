@@ -20,7 +20,7 @@ export const farmerService = {
 
     return {
       id: 'farmer_1',
-      name: 'Charan Teja',
+      name: 'Farmer',
       role: 'Farmer',
       location: 'Hyderabad, India',
       phone: '+91 98765 43210',
@@ -44,7 +44,7 @@ export const farmerService = {
 
     return {
       id: 'farmer_1',
-      name: updates.name || 'Charan Teja',
+      name: updates.name || 'Farmer',
       role: 'Farmer',
       location: updates.location || 'Hyderabad, India',
       phone: updates.phone,

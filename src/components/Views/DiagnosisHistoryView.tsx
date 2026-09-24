@@ -102,7 +102,14 @@ export const DiagnosisHistoryView: React.FC<DiagnosisHistoryViewProps> = ({
           </button>
         </div>
       ) : (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))', gap: '20px' }}>
+        <div
+          className="history-cards-grid"
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(min(340px, 100%), 1fr))',
+            gap: '20px'
+          }}
+        >
           {history.map((item) => {
             const diagnosisTitle = item.possible_diagnosis || item.disease || 'Plant Condition';
             const severity = item.severity || 'Moderate';
@@ -296,14 +303,14 @@ export const DiagnosisHistoryView: React.FC<DiagnosisHistoryViewProps> = ({
           }}
         >
           <div
-            className="agri-card"
+            className="agri-card modal-content"
             onClick={(e) => e.stopPropagation()}
             style={{
               width: '100%',
               maxWidth: '680px',
               maxHeight: '90vh',
               overflowY: 'auto',
-              padding: '28px',
+              padding: '24px',
               backgroundColor: '#ffffff',
               borderRadius: '20px'
             }}

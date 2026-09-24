@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   LayoutDashboard,
   MessageSquare,
@@ -26,6 +26,29 @@ export const Sidebar: React.FC<SidebarProps> = ({
 }) => {
   const { t } = useLanguage();
 
+  // Close drawer on Escape key press
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen) {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
+
+  // Lock body scroll when mobile drawer is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
+
   const menuItems = [
     { id: 'Dashboard', label: t('nav.dashboard'), icon: LayoutDashboard },
     { id: 'AI Assistant', label: t('nav.aiAssistant'), icon: MessageSquare },
@@ -41,13 +64,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
       {isOpen && (
         <div
           onClick={onClose}
-          style={{
-            position: 'fixed',
-            inset: 0,
-            backgroundColor: 'rgba(0, 0, 0, 0.35)',
-            zIndex: 998,
-            backdropFilter: 'blur(2px)'
-          }}
+          className="sidebar-backdrop"
+          aria-hidden="true"
         />
       )}
 
@@ -66,10 +84,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
           justifyContent: 'space-between',
           padding: '24px 16px 20px',
           overflowY: 'auto',
-          transform: isOpen ? 'translateX(0)' : undefined,
           transition: 'transform var(--transition-smooth)'
         }}
         className={`sidebar-nav ${isOpen ? 'sidebar-open' : ''}`}
+        aria-label="Sidebar Navigation"
       >
         <div>
           {/* Header Branding */}
@@ -129,18 +147,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
             {/* Mobile Close Button */}
             <button
+              type="button"
               onClick={onClose}
-              style={{
-                background: 'transparent',
-                border: 'none',
-                color: '#6f8576',
-                cursor: 'pointer',
-                display: 'none',
-                padding: '4px'
-              }}
               className="mobile-close-btn"
+              aria-label="Close navigation"
             >
-              <X size={22} />
+              <X size={20} />
             </button>
           </div>
 

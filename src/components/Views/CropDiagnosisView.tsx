@@ -670,7 +670,7 @@ export const CropDiagnosisView: React.FC<CropDiagnosisViewProps> = ({
                   <img
                     src={previewImage}
                     alt="Uploaded Crop Leaf Preview"
-                    style={{ width: '100%', height: '220px', objectFit: 'contain' }}
+                    style={{ maxWidth: '100%', width: 'auto', height: 'auto', maxHeight: '220px', objectFit: 'contain', display: 'block' }}
                   />
                   {!analyzing && (
                     <button
@@ -1327,7 +1327,7 @@ export const CropDiagnosisView: React.FC<CropDiagnosisViewProps> = ({
                   className="btn-primary-pill"
                   style={{
                     flex: '1',
-                    minWidth: '180px',
+                    minWidth: 'min(180px, 100%)',
                     justifyContent: 'center',
                     padding: '11px 18px',
                     fontSize: '0.88rem',
